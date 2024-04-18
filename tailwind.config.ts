@@ -18,6 +18,29 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        headingL: [
+          "2rem",
+          {
+            lineHeight: "2.6875rem",
+            fontWeight: "700",
+          },
+        ],
+        headingM: [
+          "1.5rem",
+          {
+            lineHeight: "1.9375rem",
+            fontWeight: "700",
+          },
+        ],
+        body: [
+          "1.125rem",
+          {
+            lineHeight: "1.4375rem",
+            fontWeight: "700",
+          },
+        ],
+      },
       colors: {
         darkGrey: "hsl(248, 10%, 15%)",
         grey: "hsl(251, 9%, 53%)",
