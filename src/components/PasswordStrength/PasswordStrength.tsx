@@ -1,5 +1,7 @@
+export type StrengthType = "Too weak!" | "Weak" | "Medium" | "Strong";
+
 type PasswordStrengthType = {
-  name: "Too weak!" | "Weak" | "Medium" | "Strong";
+  name: StrengthType;
 };
 
 const passwordStyle = [

@@ -1,18 +1,22 @@
 "use client";
-import PasswordStrength from "@/components/PasswordStrength/PasswordStrength";
+import PasswordStrength, {
+  StrengthType,
+} from "@/components/PasswordStrength/PasswordStrength";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
+import { FaRegCopy } from "react-icons/fa";
+import { MdArrowForward } from "react-icons/md";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import clsx from "clsx";
 type PasswordSettingsType = {
   length: number;
   isUppercase: boolean;
@@ -20,7 +24,38 @@ type PasswordSettingsType = {
   isNumbers: boolean;
   isSymbols: boolean;
 };
+const generatePassword = ({
+  length,
+  isUppercase,
+  isLowercase,
+  isNumbers,
+  isSymbols,
+}: PasswordSettingsType) => {
+  const characterArray = [];
+  const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowercase = "acdefghijklnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "@#$%^&*";
+  let password = "";
+  if (isUppercase) characterArray.push(uppercase);
+  if (isLowercase) characterArray.push(lowercase);
+  if (isNumbers) characterArray.push(numbers);
+  if (isSymbols) characterArray.push(symbols);
+  if (characterArray.length < 1) return "";
+  for (let index = 0; index < length; index++) {
+    const randomArray = Math.floor(Math.random() * characterArray.length);
+    const randomChar = Math.floor(
+      Math.random() * characterArray[randomArray].length
+    );
+    password += characterArray[randomArray][randomChar];
+  }
+  return password;
+};
 export default function Home() {
+  const [generatedPassword, setGeneratedPassword] = useState("");
+  const [passwordStrength, setPasswordStrength] =
+    useState<StrengthType>("Medium");
+  const [showCopiedInfo, setShowCopiedInfo] = useState(false);
   const form = useForm<PasswordSettingsType>({
     defaultValues: {
       length: 10,
@@ -30,12 +65,69 @@ export default function Home() {
       isSymbols: false,
     },
   });
+
   function onSubmit(data: PasswordSettingsType) {
-    console.log(data);
+    const { isLowercase, isNumbers, isSymbols, isUppercase, length } = data;
+    // let typeCharacterScore = 0;
+    // if (isLowercase) typeCharacterScore += 1;
+    // if (isNumbers) typeCharacterScore += 1;
+    // if (isSymbols) typeCharacterScore += 2;
+    // if (isUppercase) typeCharacterScore += 1;
+    // console.log(length, "length");
+    // console.log(length < 5, "length < 5");
+    // console.log(typeCharacterScore, "typeCharacterScore");
+
+    if (length < 5) setPasswordStrength("Too weak!");
+    else if (length < 10) setPasswordStrength("Weak");
+    else if (length < 15) setPasswordStrength("Medium");
+    else setPasswordStrength("Strong");
+    setGeneratedPassword(
+      generatePassword({
+        isLowercase,
+        isNumbers,
+        isSymbols,
+        isUppercase,
+        length,
+      })
+    );
   }
+  const copyToClipboard = () => {
+    if (!generatedPassword) return;
+    navigator.clipboard.writeText(generatedPassword);
+    setShowCopiedInfo(true);
+    setTimeout(() => {
+      setShowCopiedInfo(false);
+    }, 3000);
+  };
   return (
-    <main className="">
-      <div className="w-[343px] p-4 bg-[#979797]">
+    <main className="max-w-[540px] mx-auto min-h-[100dvh] flex flex-col items-center justify-center px-4 sm:px-0">
+      <h1 className="text-[1rem] sm:text-[1.5rem] lg:text-headingM text-grey mb-4 sm:mb-8">
+        Password Generator
+      </h1>
+      <div className="bg-darkGrey flex items-center w-full p-4 mb-6">
+        <p
+          className={clsx(
+            "text-almostWhite/20 text-headingM sm:text-headingL mr-auto",
+            { "text-almostWhite/100": generatedPassword }
+          )}
+        >
+          {generatedPassword || "P4$5W0rD!"}
+        </p>
+
+        <p
+          className={clsx(
+            "text-neonGreen opacity-0 duration-300 text-body mr-4",
+            { "opacity-100": showCopiedInfo }
+          )}
+        >
+          Copied
+        </p>
+        <FaRegCopy
+          className="text-neonGreen size-5"
+          onClick={copyToClipboard}
+        />
+      </div>
+      <div className="w-full p-4 bg-darkGrey">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -127,14 +219,16 @@ export default function Home() {
                       />
                     </FormControl>
                     <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                      Include Numbers
+                      Include Symbols
                     </FormLabel>
                   </FormItem>
                 )}
               />
             </div>
-            <PasswordStrength name="Too weak!" />
-            <Button variant="default">Generate</Button>
+            <PasswordStrength name={passwordStrength} />
+            <Button variant="default">
+              Generate <MdArrowForward className="size-5 ml-4" />
+            </Button>
           </form>
         </Form>
       </div>
