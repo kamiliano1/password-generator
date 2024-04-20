@@ -36,14 +36,14 @@ export default function PasswordStrength({ name }: PasswordStrengthType) {
   const indicatorStyle = passwordStyle.filter((item) => item.name === name)[0];
   const { name: indicatorName, background, level } = indicatorStyle;
   return (
-    <div className="bg-[#18171F] p-4 flex items-center mb-4 sm:mb-10">
+    <div className="bg-[#18171F] p-4 sm:p-8 flex items-center mb-4 sm:mb-10">
       <h2 className="uppercase text-grey text-[1rem] sm:text-body mr-auto">
         Strength
       </h2>
       <p className="uppercase text-almostWhite text-body sm:text-headingM mr-4">
         {indicatorName}
       </p>
-      <div className="flex gap-x-2">
+      <div className="flex gap-x-2 ">
         {[0, 1, 2, 4].map((item, id) => (
           <StrengthIndicator
             key={id}

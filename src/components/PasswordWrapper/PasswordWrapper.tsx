@@ -27,10 +27,10 @@ export default function PasswordWrapper() {
   const [showCopiedInfo, setShowCopiedInfo] = useState(false);
   const form = useForm<PasswordSettingsType>({
     defaultValues: {
-      length: 10,
-      isUppercase: true,
-      isLowercase: true,
-      isNumbers: true,
+      length: 0,
+      isUppercase: false,
+      isLowercase: false,
+      isNumbers: false,
       isSymbols: false,
     },
   });
@@ -67,10 +67,10 @@ export default function PasswordWrapper() {
 
   return (
     <>
-      <h1 className="text-[1rem] sm:text-[1.5rem] lg:text-headingM text-grey mb-4 sm:mb-8">
-        Password Generator
-      </h1>
-      <div className="bg-darkGrey flex items-center w-full p-4 mb-6">
+      <div className="bg-darkGrey flex items-center w-full p-4 sm:p-8 mb-6 relative justify-center">
+        <h1 className="text-[1rem] sm:text-[1.5rem] lg:text-headingM text-grey mb-4 sm:mb-8 absolute z-[5] top-[-2.8rem] sm:top-[-3.8rem] text-center">
+          Password Generator
+        </h1>
         <p
           className={cn(
             "text-headingM sm:text-headingL mr-auto",
@@ -90,11 +90,13 @@ export default function PasswordWrapper() {
           Copied
         </p>
         <FaRegCopy
-          className="text-neonGreen size-5"
+          className={clsx("text-neonGreen size-5", {
+            "cursor-pointer hover:text-almostWhite": generatedPassword,
+          })}
           onClick={copyToClipboard}
         />
       </div>
-      <div className="w-full p-4 bg-darkGrey">
+      <div className="w-full p-4 sm:p-8 bg-darkGrey">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -112,6 +114,7 @@ export default function PasswordWrapper() {
                   </div>
                   <FormControl>
                     <Slider
+                      name="passwordLengthSlider"
                       defaultValue={[0]}
                       min={0}
                       max={20}
@@ -130,6 +133,7 @@ export default function PasswordWrapper() {
                   <FormItem className="flex space-y-0 space-x-5 sm:space-x-6 items-center">
                     <FormControl>
                       <Checkbox
+                        name="isUppercaseActivated"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
@@ -147,6 +151,7 @@ export default function PasswordWrapper() {
                   <FormItem className="flex space-y-0 space-x-5 sm:space-x-6 items-center">
                     <FormControl>
                       <Checkbox
+                        name="isLowercaseActivated"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
@@ -164,6 +169,7 @@ export default function PasswordWrapper() {
                   <FormItem className="flex space-y-0 space-x-5 sm:space-x-6 items-center">
                     <FormControl>
                       <Checkbox
+                        name="isNumbersActivated"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
@@ -181,6 +187,7 @@ export default function PasswordWrapper() {
                   <FormItem className="flex space-y-0 space-x-5 sm:space-x-6 items-center">
                     <FormControl>
                       <Checkbox
+                        name="isSymbolsActivated"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
