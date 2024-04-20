@@ -1,10 +1,15 @@
-export type StrengthType = "Too weak!" | "Weak" | "Medium" | "Strong";
+export type StrengthType = "" | "Too weak!" | "Weak" | "Medium" | "Strong";
 
 type PasswordStrengthType = {
   name: StrengthType;
 };
 
 const passwordStyle = [
+  {
+    name: "",
+    level: 0,
+    background: "border-2 border-almostWhite",
+  },
   {
     name: "Too weak!",
     level: 1,
@@ -39,7 +44,7 @@ export default function PasswordStrength({ name }: PasswordStrengthType) {
         {indicatorName}
       </p>
       <div className="flex gap-x-2">
-        {passwordStyle.map((item, id) => (
+        {[0, 1, 2, 4].map((item, id) => (
           <StrengthIndicator
             key={id}
             color={background}
