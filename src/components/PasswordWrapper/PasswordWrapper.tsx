@@ -10,6 +10,7 @@ import { MdArrowForward } from "react-icons/md";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -67,30 +68,32 @@ export default function PasswordWrapper() {
 
   return (
     <>
-      <div className="bg-darkGrey flex items-center w-full p-4 sm:p-8 mb-6 relative justify-center">
+      <div className="bg-darkGrey flex items-center w-full p-4 sm:px-8 sm:py-[1.155rem] mb-6 relative justify-center">
         <h1 className="text-[1rem] sm:text-[1.5rem] lg:text-headingM text-grey mb-4 sm:mb-8 absolute z-[5] top-[-2.8rem] sm:top-[-3.8rem] text-center">
           Password Generator
         </h1>
         <p
           className={cn(
-            "text-headingM sm:text-headingL mr-auto",
-            " text-almostWhite/20",
-            { "text-almostWhite/100": generatedPassword }
+            " mr-auto text-headingM sm:text-headingL",
+            " text-almostWhite/20 ",
+            {
+              "text-almostWhite/100": generatedPassword,
+              "sm:text-[1.8rem]": form.getValues("length") == 20,
+            }
           )}
         >
           {generatedPassword || "P4$5W0rD!"}
         </p>
 
         <p
-          className={clsx(
-            "text-neonGreen opacity-0 duration-300 text-body mr-4",
-            { "opacity-100": showCopiedInfo }
-          )}
+          className={clsx("text-neonGreen text-body mr-4 ", {
+            hidden: !showCopiedInfo,
+          })}
         >
           Copied
         </p>
         <FaRegCopy
-          className={clsx("text-neonGreen size-5", {
+          className={clsx("text-neonGreen size-6", {
             "cursor-pointer hover:text-almostWhite": generatedPassword,
           })}
           onClick={copyToClipboard}
@@ -112,9 +115,9 @@ export default function PasswordWrapper() {
                       {form.getValues("length")}
                     </p>
                   </div>
-                  <FormControl>
+                  <FormControl aria-label="aa">
                     <Slider
-                      name="passwordLengthSlider"
+                      aria-label="aa"
                       defaultValue={[0]}
                       min={0}
                       max={20}
@@ -138,7 +141,7 @@ export default function PasswordWrapper() {
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                       Include Uppercase Letters
                     </FormLabel>
                   </FormItem>
@@ -156,7 +159,7 @@ export default function PasswordWrapper() {
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none cursor-pointer  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                       Include Lowercase Letters
                     </FormLabel>
                   </FormItem>
@@ -174,7 +177,7 @@ export default function PasswordWrapper() {
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none cursor-pointer  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                       Include Numbers
                     </FormLabel>
                   </FormItem>
@@ -192,7 +195,7 @@ export default function PasswordWrapper() {
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <FormLabel className="text-[1rem] sm:text-body text-almostWhite font-bold leading-none cursor-pointer  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                       Include Symbols
                     </FormLabel>
                   </FormItem>
