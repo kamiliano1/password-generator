@@ -74,8 +74,8 @@ export default function PasswordWrapper() {
         </h1>
         <p
           className={cn(
-            " mr-auto text-headingM sm:text-headingL",
-            " text-almostWhite/20 ",
+            " mr-auto text-headingM sm:text-headingL break-words",
+            " text-almostWhite/20 w-[90%]",
             {
               "text-almostWhite/100": generatedPassword,
               "sm:text-[1.8rem]": form.getValues("length") == 20,
@@ -86,14 +86,14 @@ export default function PasswordWrapper() {
         </p>
 
         <p
-          className={clsx("text-neonGreen text-body mr-4 ", {
+          className={clsx("text-neonGreen text-body mr-4 w-full", {
             hidden: !showCopiedInfo,
           })}
         >
           Copied
         </p>
         <FaRegCopy
-          className={clsx("text-neonGreen size-6", {
+          className={clsx("text-neonGreen size-6 ", {
             "cursor-pointer hover:text-almostWhite": generatedPassword,
           })}
           onClick={copyToClipboard}

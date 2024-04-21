@@ -36,7 +36,7 @@ export default function PasswordStrength({ name }: PasswordStrengthType) {
   const indicatorStyle = passwordStyle.filter((item) => item.name === name)[0];
   const { name: indicatorName, background, level } = indicatorStyle;
   return (
-    <div className="bg-[#18171F] p-4 sm:p-8 flex items-center mb-4 sm:mb-10">
+    <div className="bg-[#18171F] p-4 sm:px-8 sm:py-[1.375rem] flex items-center mb-4 sm:mb-8">
       <h2 className="uppercase text-grey text-[1rem] sm:text-body mr-auto">
         Strength
       </h2>
