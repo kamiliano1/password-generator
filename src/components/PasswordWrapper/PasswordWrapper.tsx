@@ -99,7 +99,7 @@ export default function PasswordWrapper() {
           onClick={copyToClipboard}
         />
       </div>
-      <div className="w-full p-4 sm:p-8 bg-darkGrey">
+      <div className="w-full p-4 sm:p-8 sm:pt-6 bg-darkGrey">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -107,7 +107,7 @@ export default function PasswordWrapper() {
               name="length"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mt-2">
                     <FormLabel className="text-almostWhite text-[1rem] sm:text-body">
                       Character Length
                     </FormLabel>
