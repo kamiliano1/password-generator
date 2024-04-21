@@ -99,7 +99,7 @@ export default function PasswordWrapper() {
           onClick={copyToClipboard}
         />
       </div>
-      <div className="w-full p-4 sm:p-8 sm:pt-5 bg-darkGrey">
+      <div className="w-full p-4 sm:p-8 sm:pt-6 bg-darkGrey">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
