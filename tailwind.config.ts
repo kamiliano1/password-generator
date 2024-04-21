@@ -43,7 +43,7 @@ const config = {
       },
       colors: {
         darkGrey: "hsl(248, 10%, 15%)",
-        grey: "hsl(251, 9%, 53%)",
+        grey: "hsl(272, 9%, 53%)",
         almostWhite: "hsl(252, 11%, 91%)",
         veryDarkGrey: "hsl(248, 15%, 11%)",
         neonGreen: "hsl(127, 100%, 82%)",
