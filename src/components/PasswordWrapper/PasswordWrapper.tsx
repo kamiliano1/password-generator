@@ -75,7 +75,7 @@ export default function PasswordWrapper() {
         <p
           className={cn(
             " mr-auto text-headingM sm:text-headingL break-words",
-            " text-almostWhite/40 w-[90%]",
+            " text-almostWhite/55 w-[90%]",
             {
               "text-almostWhite/100": generatedPassword,
               "sm:text-[1.8rem]": form.getValues("length") == 20,
