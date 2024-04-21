@@ -111,13 +111,12 @@ export default function PasswordWrapper() {
                     <FormLabel className="text-almostWhite text-[1rem] sm:text-body">
                       Character Length
                     </FormLabel>
-                    <p className="text-neonGreen text-headingM sm:text-headingL">
+                    <p className="text-neonGreen text-headingM sm:text-headingL sm:font-semibold">
                       {form.getValues("length")}
                     </p>
                   </div>
-                  <FormControl aria-label="aa">
+                  <FormControl>
                     <Slider
-                      aria-label="aa"
                       defaultValue={[0]}
                       min={0}
                       max={20}
